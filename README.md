@@ -24,19 +24,19 @@ However, real-world workflows require more than suggestions.
 
 Key challenges today:
 
-❌ AI can talk, but cannot safely act
+➤ AI can talk, but cannot safely act
 
-❌ Agent demos often execute blindly without guardrails
+➤ Agent demos often execute blindly without guardrails
 
-❌ No transparency into why an AI took an action
+➤ No transparency into why an AI took an action
 
-❌ Lack of auditability and trust
+➤ Lack of auditability and trust
 
-❌ Unsafe automation in file systems and workflows
+➤ Unsafe automation in file systems and workflows
 
 As AI systems move from assistive to autonomous, control, safety, and explainability become critical.
 
-💡 Solution
+➤ Solution
 
 ActiFlow AI addresses these challenges by implementing a responsible agent architecture that:
 
@@ -96,31 +96,31 @@ Auditability and transparency
 Minimal but extensible architecture
 
 🛠️ Tech Stack
-Backend
+1. Backend
 
-Python
+➤ Python
 
-Gemini LLM (free-tier API)
+➤ Gemini LLM 
 
-Standard libraries: os, pathlib, shutil, json
+➤ Standard libraries: os, pathlib, shutil, json
 
-pydantic for schema validation
+➤ pydantic for schema validation
 
-python-dotenv for environment management
+➤ python-dotenv for environment management
 
-Frontend
+2. Frontend
 
-Streamlit (lightweight, fast, Python-native UI)
+➤ Streamlit (lightweight, fast, Python-native UI)
 
-Architecture
+3. Architecture
 
-Planner (LLM-based)
+➤ Planner (LLM-based)
 
-Validator (rules & permissions)
+➤ Validator (rules & permissions)
 
-Executor (safe action layer)
+➤ Executor (safe action layer)
 
-Logger (audit trail)
+➤ Logger (audit trail)
 
 🗂️ Project Structure
 actiflow-ai/
@@ -153,51 +153,51 @@ actiflow-ai/
 
 🎯 What Problems This Solves
 
-Automates repetitive file operations
+➤ Automates repetitive file operations
 
-Reduces human error
+➤ Reduces human error
 
-Adds trust and accountability to AI actions
+➤ Adds trust and accountability to AI actions
 
-Demonstrates safe agent patterns
+➤ Demonstrates safe agent patterns
 
-Bridges the gap between AI that talks and AI that acts
+➤ Bridges the gap between AI that talks and AI that acts
 
 🌍 Real-World Relevance (2026)
 
 Similar agentic patterns exist today in:
 
-Enterprise automation platforms
+➤ Enterprise automation platforms
 
-DevOps and AIOps systems
+➤ DevOps and AIOps systems
 
-Robotics control loops
+➤ Robotics control loops
 
-Document processing pipelines
+➤ Document processing pipelines
 
 However, lightweight, explainable, personal AI agents with built-in safety are still rare — making this project timely and relevant.
 
 ⚠️ Limitations
 
-This is a prototype, not a production system
+➤ This is a prototype, not a production system
 
-Designed for learning and experimentation
+➤ Designed for learning and experimentation
 
-Limited to controlled environments
+➤ Limited to controlled environments
 
-Does not claim full autonomy
+➤ Does not claim full autonomy
 
 🚀 Future Improvements
 
-Add OCR + document understanding
+➤ Add OCR + document understanding
 
-Integrate RAG for contextual actions
+➤ Integrate RAG for contextual actions
 
-Expand toolset (email, APIs, scheduling)
+➤ Expand toolset (email, APIs, scheduling)
 
-Add role-based permissions
+➤ Add role-based permissions
 
-Local LLM support
+➤ Local LLM support
 
 📜 Disclaimer
 
