@@ -60,12 +60,20 @@ class ActionValidator:
         - ValueError if any action is unsafe
         """
         approved_actions = []
+        
 
         for action in actions:
             # 'no_action' is always safe
             if action.action == "no_action":
                 approved_actions.append(action)
                 continue
+            
+            
+            # create_folder should NEVER have a source
+            if action.action == "create_folder":
+                if action.source:
+                    raise ValueError("create_folder action must not have a source")
+
 
             # Validate source path if present
             if action.source:

@@ -27,7 +27,7 @@ class ActionExecutor:
     - All actions are valid
     """
 
-    def _execute_actions(self, actions: List[Action]) -> None:
+    def execute_actions(self, actions: List[Action]) -> None:
         """
         Execute a list of approved actions sequentially.
 

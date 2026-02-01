@@ -51,7 +51,7 @@ class GeminiPlanner:
         genai.configure(api_key=key)
 
         # Initialize the Gemini model
-        self.model = genai.GenerativeModel("gemini-pro")
+        self.model = genai.GenerativeModel("gemini-2.5-flash-lite-preview-09-2025")
 
     def create_plan(self, user_task: str, system_state: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -104,6 +104,12 @@ Return JSON in this exact format:
     }}
   ]
 }}
+
+
+Rules:
+- For create_folder, ONLY use destination
+- Do NOT include source for create_folder
+
 """
 
         # Send prompt to Gemini

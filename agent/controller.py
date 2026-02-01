@@ -13,7 +13,7 @@ This is the main control loop of ActiFlow AI.
 """
 
 from typing import Dict, Any
-
+import os 
 from agent.planner import GeminiPlanner
 from agent.validator import ActionValidator
 from agent.executer import ActionExecutor
@@ -42,6 +42,20 @@ class AgentController:
         self.validator = ActionValidator(base_directory)
         self.executor = ActionExecutor()
         self.logger = ActionLogger()
+        self.base_directory = base_directory
+
+    
+    def resolve_path(self, base_dir: str, path: str | None):
+        if not path:
+            return None
+
+        # If already absolute, leave it
+        if os.path.isabs(path):
+            return path
+
+        # Otherwise, resolve relative to base directory
+        return os.path.abspath(os.path.join(base_dir, path))
+
 
     # Run Method : 
     
@@ -65,6 +79,10 @@ class AgentController:
 
         # 2. Validate plan structure using schema
         validated_plan = Plan(**raw_plan)
+        for action in validated_plan.actions:
+            action.source = self.resolve_path(self.base_directory, action.source)
+            action.destination = self.resolve_path(self.base_directory, action.destination)
+
 
         # 3. Perform runtime safety validation
         approved_actions = self.validator.validate_actions(
