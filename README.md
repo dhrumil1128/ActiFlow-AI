@@ -4,7 +4,7 @@ A Responsible AI Agent That Plans, Acts, and Explains
 
 Overview
 
-ActiFlow AI is an experimental project that demonstrates how to build an AI agent that goes beyond text generation and safely takes real-world actions — while remaining transparent, explainable, and controlled.
+ActiFlow AI is an experimental project that demonstrates how to build an AI agent that goes beyond text generation and safely takes real-world actions while remaining transparent, explainable, and controlled.
 
 Most AI systems today can suggest what to do. ActiFlow AI explores how AI can plan, validate, execute, and explain actions responsibly, using clear guardrails and human oversight.
 
