@@ -75,12 +75,12 @@ base_directory = normalize_path(base_directory)
 
 # User input: task description
 user_task = st.text_area(
-    "📝 What do you want the agent to do?",
+    "What do you want the agent to do?",
     placeholder="Example: Organize all PDF files into folders by topic"
 )
 
 # Run button
-run_button = st.button("🚀 Run Agent")
+run_button = st.button("Run Agent")
 
 if run_button:
     # Basic input validation
@@ -107,10 +107,10 @@ if run_button:
             # Display results
             st.success("✅ Agent completed successfully!")
 
-            st.subheader("🧠 Plan Summary")
+            st.subheader("Plan Summary")
             st.write(result["plan_summary"])
 
-            st.subheader("⚙️ Actions Executed")
+            st.subheader("Actions Executed")
             for action in result["actions_executed"]:
                 st.markdown(
                     f"""
