@@ -1,210 +1,221 @@
-ActiFlow AI
+# ActiFlow AI
 
-A Responsible AI Agent That Plans, Acts, and Explains
+## Overview
 
-Overview
+ActiFlow AI is a Python-based AI agent that moves beyond chat-based interactions and safely performs real operating system actions within user-approved boundaries.
 
-ActiFlow AI is an experimental project that demonstrates how to build an AI agent that goes beyond text generation and safely takes real-world actions — while remaining transparent, explainable, and controlled.
+The core idea behind this project is simple:
 
-Most AI systems today can suggest what to do. ActiFlow AI explores how AI can plan, validate, execute, and explain actions responsibly, using clear guardrails and human oversight.
+AI that *acts* must be governed by strict safety rules, clear execution boundaries, and transparent logging.
 
-This project is designed as a learning-focused, real-world–inspired implementation of agentic AI systems.
+ActiFlow AI demonstrates how to design an agent that can plan tasks using a large language model and then execute those tasks on the local file system in a controlled, auditable, and secure manner.
 
-Problem Statement
+This project is intentionally lightweight and framework-minimal, focusing on architecture, safety, and real-world applicability rather than UI complexity or heavy abstractions.
 
-Modern AI systems are excellent at:
+---
 
-Generating text
+## Problem Statement
 
-Answering questions
+Most AI applications today stop at text generation. While models can suggest actions or workflows, they rarely interact with real systems due to the risks involved.
 
-Making recommendations
+The main challenges are:
 
-However, real-world workflows require more than suggestions.
+* Unrestricted access to the operating system is dangerous
+* AI outputs cannot be blindly trusted
+* There is often no validation layer between planning and execution
+* Lack of transparency and auditability
 
-Key challenges today:
+As AI agents become more capable, the real problem shifts from intelligence to **safe execution**.
 
-❌ AI can talk, but cannot safely act
+---
 
-❌ Agent demos often execute blindly without guardrails
+## Solution
 
-❌ No transparency into why an AI took an action
+ActiFlow AI introduces a structured agent pipeline:
 
-❌ Lack of auditability and trust
+Planning → Validation → Controlled Execution → Logging
 
-❌ Unsafe automation in file systems and workflows
+Key principles:
 
-As AI systems move from assistive to autonomous, control, safety, and explainability become critical.
+* The AI only plans actions
+* All actions are validated before execution
+* The agent is restricted to a user-defined base directory
+* Every action is logged for traceability
 
-💡 Solution
+This approach allows AI to interact with the operating system responsibly, without unrestricted access.
 
-ActiFlow AI addresses these challenges by implementing a responsible agent architecture that:
+---
 
-Separates decision-making from execution
+## Key Features
 
-Uses AI only for planning and reasoning
+* LLM-based task planning using structured JSON output
+* Strict schema validation using Pydantic
+* Runtime safety validation for all file system actions
+* Dynamic path resolution within a user-approved base directory
+* Deterministic OS execution (create, move, rename files)
+* Full action logging for auditability
+* Lightweight Python-first architecture
 
-Enforces strict validation and permissions
+---
 
-Logs and explains every action
+## Architecture Overview
 
-Allows human oversight before execution
+The agent follows a clean separation of concerns:
 
-Instead of asking:
+* Planner → Thinks and produces a structured plan
+* Schemas → Validate plan and action structure
+* Validator → Enforces safety and permission rules
+* Executor → Performs deterministic OS actions
+* Logger → Records every executed action
 
-“Can AI do this?”
+High-level flow:
 
-ActiFlow AI asks:
+User Input → Planner → Plan Schema → Path Resolution → Safety Validator → Executor → Logger
 
-“Should AI do this, and can we trust it when it does?”
+---
 
-🔁 How the Agent Works
+## Project Structure
 
-The system follows a structured agent loop:
-
-Observe → Think → Plan → Validate → Act → Verify → Log
-
-Step-by-step flow:
-
-Observe
-The agent scans the environment (e.g., files, folders).
-
-Think & Plan
-A Large Language Model (Gemini) generates a structured plan in JSON.
-
-Validate
-Actions are checked against safety rules and permissions.
-
-Act
-Only allowed actions are executed by the system.
-
-Verify & Log
-Results are verified and logged with explanations.
-
-The LLM never executes actions directly — all execution is controlled by deterministic code.
-
-🧠 Key Design Principles
-
-Safety-first execution
-
-Explainability over autonomy
-
-Human-in-the-loop by default
-
-Auditability and transparency
-
-Minimal but extensible architecture
-
-🛠️ Tech Stack
-Backend
-
-Python
-
-Gemini LLM (free-tier API)
-
-Standard libraries: os, pathlib, shutil, json
-
-pydantic for schema validation
-
-python-dotenv for environment management
-
-Frontend
-
-Streamlit (lightweight, fast, Python-native UI)
-
-Architecture
-
-Planner (LLM-based)
-
-Validator (rules & permissions)
-
-Executor (safe action layer)
-
-Logger (audit trail)
-
-🗂️ Project Structure
+```
 actiflow-ai/
 │
-├── app.py                 # Streamlit UI
+├── app.py                 # Streamlit UI entry point
 │
 ├── agent/
-│   ├── controller.py      # Agent loop
-│   ├── planner.py         # Gemini planning logic
-│   ├── validator.py       # Safety checks
-│   ├── executor.py        # Action execution
-│   └── logger.py          # Logs & explanations
+│   ├── controller.py      # Agent orchestration logic
+│   ├── planner.py         # LLM-based planning
+│   ├── executor.py        # OS-level action execution
+│   ├── validator.py       # Safety and permission checks
+│   └── logger.py          # Action logging
 │
 ├── schemas/
-│   ├── plan_schema.py
-│   └── action_schema.py
+│   ├── action_schema.py   # Action data models
+│   └── plan_schema.py     # Plan structure
 │
 ├── tools/
-│   └── filesystem.py
+│   ├── filesystem.py      # Optional OS operation wrappers
+│   └── utils.py           # Helper utilities
 │
 ├── data/
-│   └── sample_files/
+│   └── sample_files/      # Safe testing workspace
 │
 ├── logs/
-│   └── actions.log
+│   └── actions.log        # Execution logs
 │
-├── .env
+├── .env                   # API keys
 ├── requirements.txt
-└── README.md
+├── README.md
+└── .gitignore
+```
 
-🎯 What Problems This Solves
+---
 
-Automates repetitive file operations
+## Technology Stack
 
-Reduces human error
+### Core Language
 
-Adds trust and accountability to AI actions
+* Python 3.10+
 
-Demonstrates safe agent patterns
+### AI / Planning
 
-Bridges the gap between AI that talks and AI that acts
+* Google Gemini (LLM-based planning)
+* Structured JSON planning
 
-🌍 Real-World Relevance (2026)
+### Validation & Safety
 
-Similar agentic patterns exist today in:
+* Pydantic for schema validation
+* Custom runtime safety checks
 
-Enterprise automation platforms
+### OS Interaction
 
-DevOps and AIOps systems
+* Python standard library (`os`, `shutil`)
+* No shell execution
+* No system-level permissions
 
-Robotics control loops
+### UI
 
-Document processing pipelines
+* Streamlit (used only as an interaction layer)
 
-However, lightweight, explainable, personal AI agents with built-in safety are still rare — making this project timely and relevant.
+### Logging
 
-⚠️ Limitations
+* JSON-based action logs
 
-This is a prototype, not a production system
+---
 
-Designed for learning and experimentation
+## Security Model
 
-Limited to controlled environments
+Security is a first-class concern in ActiFlow AI.
 
-Does not claim full autonomy
+The system enforces:
 
-🚀 Future Improvements
+* A single user-defined base directory
+* No access outside the approved scope
+* Automatic resolution of relative paths into safe absolute paths
+* Action-type-specific validation rules
+* Rejection of unsafe or ambiguous paths
 
-Add OCR + document understanding
+The agent never receives unrestricted OS access.
 
-Integrate RAG for contextual actions
+---
 
-Expand toolset (email, APIs, scheduling)
+## Real-World Use Cases
 
-Add role-based permissions
+* Document organization assistants
+* Internal enterprise automation tools
+* Desktop AI assistants with scoped permissions
+* Workflow automation systems
+* Educational demonstrations of safe AI agents
 
-Local LLM support
+---
 
-📜 Disclaimer
+## Limitations
 
-This project is for educational and experimental purposes only.
-Always review and validate AI-driven actions before applying them in real systems.
+* Single-agent, single-machine design
+* Limited to file system operations
+* No parallel execution
+* No rollback or undo mechanism
 
-🙌 Final Note
+These limitations are intentional to keep the system understandable and safe.
 
-ActiFlow AI is less about making AI more powerful —
-and more about making AI responsible when it acts.
+---
+
+## Future Improvements
+
+* Dry-run (preview) mode
+* User confirmation before execution
+* Expanded action types
+* Role-based permissions
+* Multi-agent coordination
+* Cross-platform packaging
+
+---
+
+## Setup Instructions
+
+1. Clone the repository
+2. Create and activate a virtual environment
+3. Install dependencies from `requirements.txt`
+4. Add your Gemini API key to `.env`
+5. Run the application using Streamlit
+
+---
+
+## Author
+
+**Dhrumil**
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+You are free to use, modify, and distribute this project with proper attribution.
+
+---
+
+## Disclaimer
+
+This project is intended for educational and experimental purposes.
+
+Always use a dedicated test directory when allowing AI systems to perform OS-level actions.
